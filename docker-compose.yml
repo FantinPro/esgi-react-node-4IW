@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+    node:
+        image: node:16.15.0
+        user: node
+        tty: true
+        stdin_open: true
+        entrypoint: node
+        working_dir: /home/node
+        ports:
+            - 9000:9000
+        volumes:
+            - .:/home/node
+        depends_on:
+            - mongo
+            - postgres
+      
+    mongodb:
+      image: mongo:4.2.1-bionic
+      ports:
+        - '27017:27017'
+      volumes:
+        - ./db-data-mongodb:/data/db
+
+    postgres:
+      image: postgres:13-alpine
+      restart: always
+      environment:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+      volumes:
+        - ./db-data-postgres:/var/lib/postgresql/data:rw
+      ports:
+        - target: 5432
+          published: 5432
+          protocol: tcp
+
+    adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8080:8080
