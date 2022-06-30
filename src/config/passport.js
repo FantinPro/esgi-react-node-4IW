@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20');
 const config = require('./config');
 const usersService = require('../services/user.service');
 const tokensService = require('../services/token.service');
-const User = require('../model/postgres/User.postgres');
+const { User } = require('../model/postgres');
 
 const jwtVerify = async (payload, done) => {
     try {

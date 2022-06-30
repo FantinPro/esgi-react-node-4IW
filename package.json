@@ -11,6 +11,7 @@
         "install": "docker-compose exec node npm install",
         "start": "nodemon src/server.js",
         "local": "docker-compose exec node npm run start",
+        "migrate": "docker-compose exec node node src/migrate.js",
         "test": "jest"
     },
     "private": true,
@@ -27,8 +28,7 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-security": "^1.5.0",
         "jest": "^27.3.1",
-        "nodemon": "^2.0.15",
-        "prisma": "^4.0.0"
+        "nodemon": "^2.0.15"
     },
     "dependencies": {
         "@prisma/client": "^4.0.0",

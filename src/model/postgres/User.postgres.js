@@ -1,6 +1,7 @@
-// create user model using sequelize with email, password and googleId
 const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
 const connection = require('../../core/db/postgres/db.postgres');
+const { roles } = require('../../utils/Helpers');
 
 class User extends Model {}
 
@@ -29,7 +30,7 @@ User.init(
         role: {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: 'ROLE_USER',
+            defaultValue: roles.ROLE_USER,
         },
     },
     {
@@ -37,5 +38,25 @@ User.init(
         modelName: 'user',
     },
 );
+
+User.addHook('beforeCreate', async (user) => {
+    if (user.password) {
+        // eslint-disable-next-line no-param-reassign
+        user.password = await bcrypt.hash(
+            user.password,
+            await bcrypt.genSalt(),
+        );
+    }
+});
+
+User.addHook('beforeUpdate', async (user, { fields }) => {
+    if (fields.includes('password')) {
+        // eslint-disable-next-line no-param-reassign
+        user.password = await bcrypt.hash(
+            user.password,
+            await bcrypt.genSalt(),
+        );
+    }
+});
 
 module.exports = User;
