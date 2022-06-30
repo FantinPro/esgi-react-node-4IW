@@ -4,7 +4,7 @@ const User = require('../model/postgres/User.postgres');
 const createUser = async (userBody) => User.create(userBody);
 
 const loginUserWithEmailAndPassword = async (email, password) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email } });
     if (this.googleId) {
         return false;
     }

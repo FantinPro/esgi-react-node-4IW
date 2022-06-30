@@ -6,7 +6,7 @@ const fixture = async () => {
     await connect();
     const fixtures = [];
     // await Entity.deleteMany({});
-    console.log(`${restaurants.length} restaurants to be inserted`);
+    // console.log(`${entities.length} entites to be inserted`);
     // await Entity.insertMany(restaurants);
 };
 

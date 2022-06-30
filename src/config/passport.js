@@ -22,7 +22,7 @@ const jwtVerify = async (payload, done) => {
 const googleVerify = async (accessToken, refreshToken, profile, cb) => {
     try {
         const { id, emails } = profile;
-        let user = await User.findOne({ googleId: profile.id });
+        let user = await User.findOne({ where: { googleId: profile.id } });
         if (!user) {
             user = await usersService.createUser({
                 googleId: id,

@@ -19,3 +19,7 @@ npm run install
 ```
 npm run local
 ```
+
+4) migration postgresql
+
+add AUTO_SYNC_DATABASE="true" in .env

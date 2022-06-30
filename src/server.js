@@ -10,7 +10,6 @@ const passportConfig = require('./config/passport');
 const { authorized } = require('./middlewares/auth');
 const { errorHandler } = require('./middlewares/error');
 const routes = require('./routes/index');
-const User = require('./model/postgres/User.postgres');
 
 const server = express();
 
@@ -43,6 +42,8 @@ server.get(
     }),
 );
 
+// Redirect to front, (you'll need to make a request with the token inside the query param)
+// make the request to --> GET: /users/token (put the token in AUTHORIZATION header, started by bearer)
 server.get(
     '/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/failed' }),

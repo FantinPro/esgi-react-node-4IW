@@ -9,7 +9,7 @@ const verifyCallback = (req, resolve, reject, role) => async (err, user, info) =
     }
 
     // do stuff about user role
-    // if (user.role !== '...') { ... }
+    // if (user.role !== role) { ... }
 
     req.user = user;
     resolve();
