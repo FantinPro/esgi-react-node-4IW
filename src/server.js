@@ -10,6 +10,7 @@ const passportConfig = require('./config/passport');
 const { authorized } = require('./middlewares/auth');
 const { errorHandler } = require('./middlewares/error');
 const routes = require('./routes/index');
+const { User, Message } = require('./model/postgres');
 
 const server = express();
 
@@ -33,6 +34,24 @@ server.get('/', async (req, res) => {
 
 server.get('/test-authorize', authorized(), async (req, res) => {
     res.json('authorized :)');
+});
+
+server.get('/test', async (req, res) => {
+    const user = await Message.findAll({
+        include: [
+            {
+                model: User,
+                as: 'sender',
+                attributes: ['email'],
+            },
+            {
+                model: User,
+                as: 'receiver',
+                attributes: ['email'],
+            },
+        ],
+    });
+    res.json(user);
 });
 
 server.get(
