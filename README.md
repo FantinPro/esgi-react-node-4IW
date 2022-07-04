@@ -25,3 +25,5 @@ npm run local
 ```
 npm run migrate
 ```
+
+test sign commit
