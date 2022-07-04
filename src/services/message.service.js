@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Message } = require('../model/postgres');
+const { Message, User } = require('../model/postgres');
 
 const createMessage = (message) => Message.create(message);
 
@@ -16,6 +16,18 @@ const getMessagesFromUsers = (senderId, receiverId) => Message.findAll({
             },
         ],
     },
+    include: [
+        {
+            model: User,
+            as: 'sender',
+            attributes: ['email'],
+        },
+        {
+            model: User,
+            as: 'receiver',
+            attributes: ['email'],
+        },
+    ],
     order: [['createdAt', 'ASC']],
 });
 

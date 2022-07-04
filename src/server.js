@@ -36,24 +36,6 @@ server.get('/test-authorize', authorized(), async (req, res) => {
     res.json('authorized :)');
 });
 
-server.get('/test', async (req, res) => {
-    const user = await Message.findAll({
-        include: [
-            {
-                model: User,
-                as: 'sender',
-                attributes: ['email'],
-            },
-            {
-                model: User,
-                as: 'receiver',
-                attributes: ['email'],
-            },
-        ],
-    });
-    res.json(user);
-});
-
 server.get(
     '/auth/google',
     passport.authenticate('google', {
