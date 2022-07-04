@@ -29,7 +29,7 @@ const googleVerify = async (accessToken, refreshToken, profile, cb) => {
                 email: emails[0].value,
             });
             // dont't need to do this but if we want to store display name in the future, we will update it.
-            User.update({ googleId: id }, { where: { id: user.id } });
+            User.update({ googleId: id }, { where: { id: user.id }, returning: true });
         }
         const token = await tokensService.getAccessTokens(user);
 

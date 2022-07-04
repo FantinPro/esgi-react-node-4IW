@@ -2,22 +2,23 @@ const { ValidationError } = require('sequelize');
 const config = require('../config/config');
 const { logger } = require('../config/logger');
 
-const formatError = (validationError) => validationError.errors.reduce((acc, error) => {
+const _formatError = (validationError) => validationError.errors.reduce((acc, error) => {
     acc[error.path] = error.message;
     return acc;
 }, {});
 
 const errorHandler = (err, req, res, next) => {
     if (err instanceof ValidationError) {
-        return res.status(422).json(formatError(err));
+        return res.status(422).json(_formatError(err));
     }
 
+    // else ApiError
     const { statusCode, message } = err;
 
     const response = {
         code: statusCode || 500,
         message,
-        stack: err.stack,
+        // stack: err.stack,
     };
 
     if (config.env === 'local') {

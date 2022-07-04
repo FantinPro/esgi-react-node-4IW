@@ -1,7 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
 const connection = require('../../core/db/postgres/db.postgres');
-const { roles } = require('../../utils/Helpers');
 
 class Message extends Model {}
 

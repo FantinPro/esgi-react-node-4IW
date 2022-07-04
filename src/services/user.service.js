@@ -8,7 +8,7 @@ const loginUserWithEmailAndPassword = async (email, password) => {
     if (this.googleId) {
         return false;
     }
-    const isPasswordMatch = await compare(user?.password, password);
+    const isPasswordMatch = await compare(password, user?.password);
     if (!user || !isPasswordMatch) {
         throw new Error('Incorrect identifiants');
     }

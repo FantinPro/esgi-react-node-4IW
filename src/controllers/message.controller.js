@@ -2,10 +2,10 @@ const messageService = require('../services/message.service');
 
 const sendMessage = async (req, res, next) => {
     try {
-        const { text, senderId, receiverId } = req.body;
+        const { text, receiverId } = req.body;
         const message = await messageService.createMessage({
             text,
-            senderId,
+            senderId: req.user.id,
             receiverId,
         });
         res.json(message);

@@ -36,6 +36,18 @@ server.get('/test-authorize', authorized(), async (req, res) => {
     res.json('authorized :)');
 });
 
+server.get('/test', async (req, res) => {
+    const result = await User.findByPk(16, {
+        include: [
+            {
+                model: Message,
+                as: 'messages',
+            },
+        ],
+    });
+    res.json(result);
+});
+
 server.get(
     '/auth/google',
     passport.authenticate('google', {
